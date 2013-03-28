@@ -56,6 +56,11 @@ class FansiteSimulator(object):
         elif("isOrdered" in deck and deck["isOrdered"]):
             self.addOrdered(commandArgs)
 
+        if(deck.get("isDefendingExactedOrdered")):
+            self.addDefendingExactOrdered(commandArgs)
+        elif(deck.get("isDefendingOrdered")):
+            self.addDefendingOrdered(commandArgs)
+
         if("isSurge" in deck and deck["isSurge"]):
             self.addSurge(commandArgs)
 
@@ -85,6 +90,12 @@ class FansiteSimulator(object):
 
     def addCustom(self, commandArgs, custom):
         raise NotImplementedError, "Custom Deck"
+
+    def addDefendingExactOrdered(self, commandArgs):
+        raise NotImplementedError, "Defending Exact Order (ignore 3-card hand rule)"
+
+    def addDefendingOrdered(self, commandArgs):
+        raise NotImplementedError, "Defending Ordered Deck (honor 3-card hand rule)"
 
     def addDelayed(self, commandArgs):
         raise NotImplementedError, "Delayed (tournament mode)"

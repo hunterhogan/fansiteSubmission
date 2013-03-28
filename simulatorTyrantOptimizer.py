@@ -38,6 +38,15 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
     def addCustom(self, commandArgs, custom):
         commandArgs.append(custom)
 
+    def addDefendingExactOrdered(self, commandArgs):
+        commandArgs.append("defender:exact-ordered")
+
+    def addDefendingOrdered(self, commandArgs):
+        commandArgs.append("defender:ordered")
+
+    def addExactOrdered(self, commandArgs):
+        commandArgs.append("exact-ordered")
+
     def addExtraArgs(self, commandArgs, args):
         commandArgs.extend(["-t", str(getattr(args, "numThreads", 1))])
         commandArgs.extend(["sim", str(args.numSims)])
@@ -46,7 +55,7 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
         commandArgs.append("Mission #%s" % missionId)
 
     def addOrdered(self, commandArgs):
-        commandArgs.append("-r")
+        commandArgs.append("ordered")
 
     def addQuest(self, commandArgs, questId):
         commandArgs.append("Quest #%s" % questId)
