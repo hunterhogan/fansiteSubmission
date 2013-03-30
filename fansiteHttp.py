@@ -1,4 +1,3 @@
-#import httplib
 import json
 import urllib2
 
@@ -12,12 +11,8 @@ def getHeaders():
 def doRequest(path, data):
     fansiteUrl = "tyrant.40in.net"
     headers = getHeaders()
-
     requestData = json.dumps(data)
-
-    request = urllib2.Request(url='http://' + fansiteUrl + path, data=requestData)
-    resp = urllib2.urlopen(request)
-
+    resp = urllib2.urlopen(url='http://' + fansiteUrl + path, data=requestData)
     return json.loads(resp.read())
 
 def handleGenericErrors(code):

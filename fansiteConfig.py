@@ -49,7 +49,7 @@ def getConfigArgs(args, config = "fansite_config.txt"):
         if(len(line) == 0 or line[0] == "#"):
             continue
         arg = line.split('=')
-        if getattr(args, arg[0]) is None:
+        if getattr(args, arg[0], None) is None:
             setattr(args, arg[0], arg[1])
     return args
 

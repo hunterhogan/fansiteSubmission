@@ -1,5 +1,4 @@
 import hashlib
-import httplib
 import json
 import os
 import re
@@ -61,6 +60,9 @@ def fansiteTest():
     print args
     simulators = loadSimulators()
 
+    if hasattr(args, 'proxy'):
+        import urllib2
+        urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler({'http': args.proxy})))
     simulator = None
     if(args.simulator in simulators):
         simulator = simulators[args.simulator]()
