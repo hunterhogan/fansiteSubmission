@@ -51,9 +51,9 @@ class FansiteSimulator(object):
         if("battlegroundId" in deck):
             self.addBattlegroundId(commandArgs, deck["battlegroundId"])
 
-        if(deck.get("isExactOrdered"):
+        if(deck.get("isExactOrdered")):
             self.addExactOrdered(commandArgs)
-        elif("isOrdered" in deck and deck["isOrdered"]):
+        elif(deck.get("isOrdered")):
             self.addOrdered(commandArgs)
 
         if(deck.get("isDefendingExactOrdered")):
