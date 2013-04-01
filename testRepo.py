@@ -12,7 +12,7 @@ def updateTests(dataDirectory = "", filename = "tests.json", url = "http://haile
         f.write(contents)
     return contents
 
-def loadTests(forceUpdate = False, dataDirectory = "", filename = "tests.json", host = "haileon.com", path = "/SimTyrantJS_ListTestCases"):
+def loadTests(forceUpdate = False, dataDirectory = "", filename = "tests.json", url = "http://haileon.com/SimTyrantJS_ListTestCases"):
     data = None
     if(not forceUpdate):
         fileDest = os.path.join(dataDirectory, filename)
@@ -20,7 +20,7 @@ def loadTests(forceUpdate = False, dataDirectory = "", filename = "tests.json", 
             with open(fileDest, 'rb') as f:
                 data = f.read()
     if(data is None):
-        data = updateTests(dataDirectory, filename, host, path)
+        data = updateTests(dataDirectory, filename, url)
     json_data = json.loads(data)
     decks = json_data["decks"]
     return decks
