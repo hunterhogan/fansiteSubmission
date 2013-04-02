@@ -44,6 +44,9 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
     def addDefendingOrdered(self, commandArgs):
         commandArgs.append("defender:ordered")
 
+    def addDelayed(self, commandArgs):
+        commandArgs.append("tournament")
+
     def addExactOrdered(self, commandArgs):
         commandArgs.append("exact-ordered")
 
