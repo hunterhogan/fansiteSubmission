@@ -156,7 +156,7 @@ def submitSimulationRequestData(deckId, sessId, battlesTotal, battlesWon, timeTa
     requestData["timeTaken"] = timeTaken
 
     if(not ard is None):
-        requestData["anp"] = ard
+        requestData["ard"] = ard
 
     return [path, requestData]
 
