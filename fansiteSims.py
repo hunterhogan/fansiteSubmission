@@ -102,13 +102,13 @@ def fansiteTest():
                 if results is None:
                     print(" ... no result, skipped")
                 if not args.test:
-                    print(" ... result: %(wins)s/%(total)s, anp=%(anp)s, time=%(time)s" % results)
-                    json_data = fansiteHttp.submitSimulation(deckId, sessId, results["total"], results["wins"], results["time"], results["anp"])
+                    print(" ... result: %(wins)s/%(total)s, ard=%(ard)s, time=%(time)s" % results)
+                    json_data = fansiteHttp.submitSimulation(deckId, sessId, results["total"], results["wins"], results["time"], results["ard"])
                 else:
-                    testRepo.testKey(deck, "winrate", 100 * int(results["wins"]) / int(results["total"]))
-                    testRepo.testKey(deck, "drawrate", 100 * int(results["draws"]) / int(results["total"]))
-                    testRepo.testKey(deck, "lossrate", 100 * int(results["losses"]) / int(results["total"]))
-                    testRepo.testKey(deck, "anp", float(results["anp"]), 5)
+                    testRepo.testKey(deck, "winrate", 100 * int(results["wins"]) / int(results["total"] if(results.get("wins") is not None) else None))
+                    testRepo.testKey(deck, "drawrate", 100 * int(results["draws"]) / int(results["total"] if(results.get("draws") is not None) else None))
+                    testRepo.testKey(deck, "lossrate", 100 * int(results["losses"]) / int(results["total"] if(results.get("losses") is not None) else None))
+                    testRepo.testKey(deck, "ard", float(results["ard"]) if(results.get("ard") is not None) else None, 5)
             except NotImplementedError, e:
                 print("Error: Not Implemented: %s" % e)
             except Exception, e:

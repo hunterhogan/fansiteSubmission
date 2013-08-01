@@ -8,11 +8,11 @@ from fansiteSimulator import FansiteSimulator
 class SimulatorTyrantOptimizer(FansiteSimulator):
     name = "Tyrant Optimizer"
     executable = "tyrant_optimize.exe"
-    results_regex = re.compile(r"win%: \S+ \((\d+) out of (\d+)\)"
-        r"\s+draw%: \S+ \((\d+) out of \d+\)"
-        r"\s+loss%: \S+ \((\d+) out of \d+\)"
-        r"\s+ANP: (\S+)")
-    results_keys = ["wins", "total", "draws", "losses", "anp"]
+    results_regex = re.compile(r"win%: \S+ \((\d+) / (\d+)\)"
+        r"(?:\s+draw%: \S+ \((\d+) / \d+\))?"
+        r"\s+loss%: \S+ \((\d+) / \d+\)"
+        r"(?:\s+ard: (\S+) \(\d+ / \d+\))?")
+    results_keys = ["wins", "total", "draws", "losses", "ard"]
 
     def loadVersion(self):
         commandArgs = [self.executable, "-version"]

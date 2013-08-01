@@ -25,7 +25,7 @@ class SimulatorIteratedecks(FansiteSimulator):
         results["total"] = simResults[1]
         results["losses"] = simResults[2]
         results["draws"] = simResults[3]
-        results["anp"] = simResults[4]
+        results["ard"] = simResults[4]
 
         return results
 
