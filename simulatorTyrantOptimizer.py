@@ -8,10 +8,10 @@ from fansiteSimulator import FansiteSimulator
 class SimulatorTyrantOptimizer(FansiteSimulator):
     name = "Tyrant Optimizer"
     executable = "tyrant_optimize.exe"
-    results_regex = re.compile(r"win%: \S+ \((\d+) / (\d+)\)"
-        r"(?:\s+draw%: \S+ \((\d+) / \d+\))?"
+    results_regex = re.compile(r"(?:kill|win)%: \S+ \((\d+) / (\d+)\)"
+        r"\s+stall%: \S+ \((\d+) / \d+\)"
         r"\s+loss%: \S+ \((\d+) / \d+\)"
-        r"(?:\s+ard: (\S+) \(\d+ / \d+\))?")
+        r"(?:\s+(ard|achievement): \S+ \((\d+) / \d+\))?")
     results_keys = ["wins", "total", "draws", "losses", "ard"]
 
     def loadVersion(self):
@@ -21,9 +21,23 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
 
     def processResults(self, results):
         match = self.results_regex.search(results)
-        if match:
-            return dict(zip(self.results_keys, match.groups()))
-        print("ERROR: Cannot find results from output {{{\n", results, "}}}")
+        if not match:
+            print("ERROR: Cannot find results from output {{{\n", results, "}}}")
+            return None
+        wins, total, stalls, losses, points_type, points = match.groups()
+        results = dict()
+        if points_type == "achievement":
+            results["wins"] = points
+        elif points_type == "ard":
+            results["wins"] = int(wins) + int(stalls)
+        else:
+            results["wins"] = wins
+        results["total"] = total
+        results["draws"] = stalls
+        results["losses"] = losses
+        if points_type == "ard":
+            results["ard"] = float(points) / int(total)
+        return results
 
     def addAchievement(self, commandArgs, achievementId, missionId):
         commandArgs.append("Mission #%s" % missionId)
