@@ -11,7 +11,7 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
     results_regex = re.compile(r"(?:kill|win)%: \S+ \((\d+) / (\d+)\)"
         r"\s+stall%: \S+ \((\d+) / \d+\)"
         r"\s+loss%: \S+ \((\d+) / \d+\)"
-        r"(?:\s+(ard|achievement): \S+ \((\d+) / \d+\))?")
+        r"(?:\s+(ard|achievement%): \S+ \((\d+) / \d+\))?")
     results_keys = ["wins", "total", "draws", "losses", "ard"]
 
     def loadVersion(self):
@@ -26,7 +26,7 @@ class SimulatorTyrantOptimizer(FansiteSimulator):
             return None
         wins, total, stalls, losses, points_type, points = match.groups()
         results = dict()
-        if points_type == "achievement":
+        if points_type == "achievement%":
             results["wins"] = points
         elif points_type == "ard":
             results["wins"] = int(wins) + int(stalls)
